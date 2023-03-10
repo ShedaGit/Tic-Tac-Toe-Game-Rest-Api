@@ -153,6 +153,8 @@ Body:
 }
 ```
 
+Example response:
+
 ```json
 {
   "id": "81e5e620-8c9a-4804-a119-03c40072f2eb",
