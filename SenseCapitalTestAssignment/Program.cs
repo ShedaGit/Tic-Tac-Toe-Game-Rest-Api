@@ -12,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddDbContext<GameContext>(options => options.UseSqlServer("Server=.\\SQLExpress;Database=tictactoedb;Trusted_Connection=true;TrustServerCertificate=true;")); 
 
 var app = builder.Build();
 
