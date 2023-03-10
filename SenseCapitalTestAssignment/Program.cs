@@ -1,6 +1,7 @@
 global using SenseCapitalTestAssignment.Models;
 global using SenseCapitalTestAssignment.Data;
 global using Microsoft.EntityFrameworkCore;
+using SenseCapitalTestAssignment.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<GameContext>(options => options.UseSqlServer("Server=.\\SQLExpress;Database=superherodb;Trusted_Connection=true;TrustServerCertificate=true;"));
+builder.Services.AddScoped<IGameService, GameService>();
 
 var app = builder.Build();
 
