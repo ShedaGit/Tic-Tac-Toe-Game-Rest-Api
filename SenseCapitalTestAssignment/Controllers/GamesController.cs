@@ -41,25 +41,5 @@ namespace SenseCapitalTestAssignment.Controllers
 
             return Ok(game);
         }
-
-        [HttpPost("{id}")]
-        public async Task<ActionResult<Game>> MakeMoveAsync(string id, [FromBody] MoveRequest moveRequest)
-        {
-            var game = await _gameService.GetGameAsync(id);
-
-            if (game == null)
-            {
-                return NotFound();
-            }
-
-            var updatedGame = await _gameService.MakeMoveAsync(game, moveRequest);
-
-            if (updatedGame == null)
-            {
-                return BadRequest("Invalid move.");
-            }
-
-            return Ok(updatedGame);
-        }
     }
 }
