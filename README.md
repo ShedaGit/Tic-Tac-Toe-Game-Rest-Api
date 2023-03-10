@@ -146,7 +146,7 @@ Example request:
 ```Insomnia
 POST http://localhost:<port>/api/move/81e5e620-8c9a-4804-a119-03c40072f2eb
 Content-Type: application/json
-Body:
+
 {
   "row": 0,
   "column": 1
