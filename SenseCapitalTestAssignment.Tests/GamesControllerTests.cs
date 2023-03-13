@@ -43,5 +43,21 @@ namespace SenseCapitalTestAssignment.Tests
             var gamesList = okObjectResult?.Value as IEnumerable<Game>;
             Assert.That(gamesList?.Count(), Is.EqualTo(4));
         }
+
+        [Test]
+        public async Task CreateGameAsync_ShouldReturnOkResult_WithNewGame()
+        {
+            // Arrange
+            var newGame = new Game { Id = "5", Board = "         ", NextPlayer = "X", Winner = null, IsDraw = false, IsGameOver = false };
+            _mockGameService.Setup(x => x.CreateGameAsync()).ReturnsAsync(newGame);
+
+            // Act
+            var actual = await _controller.CreateGameAsync();
+
+            // Assert
+            Assert.IsInstanceOf<OkObjectResult>(actual.Result);
+            var okObjectResult = actual.Result as OkObjectResult;
+            Assert.IsInstanceOf<Game>(okObjectResult?.Value);
+        }
     }
 }
