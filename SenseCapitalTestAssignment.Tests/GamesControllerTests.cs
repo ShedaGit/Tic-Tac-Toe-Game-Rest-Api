@@ -59,5 +59,23 @@ namespace SenseCapitalTestAssignment.Tests
             var okObjectResult = actual.Result as OkObjectResult;
             Assert.IsInstanceOf<Game>(okObjectResult?.Value);
         }
+
+        [Test]
+        public async Task GetGameAsync_ShouldReturnOkResult_WithTheGame()
+        {
+            // Arrange
+            _mockGameService.Setup(x => x.GetGameAsync(It.IsAny<string>())).ReturnsAsync(_games[2]);
+
+            // Act
+            var actual = await _controller.GetGameAsync("3");
+
+            // Assert
+            Assert.IsInstanceOf<OkObjectResult>(actual.Result);
+            var okObjectResult = actual.Result as OkObjectResult;
+            Assert.IsInstanceOf<Game>(okObjectResult?.Value);
+            var game = okObjectResult?.Value as Game;
+            Assert.That(game?.Id, Is.EqualTo("3"));
+            Assert.That(game?.Winner, Is.EqualTo("X"));
+        }
     }
 }
