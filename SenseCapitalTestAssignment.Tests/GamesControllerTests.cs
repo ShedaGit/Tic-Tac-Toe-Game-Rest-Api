@@ -8,37 +8,40 @@ namespace SenseCapitalTestAssignment.Tests
 {
     public class GamesControllerTests
     {
-        private readonly Mock<IGameService> _mockGameService;
-        private readonly GamesController _controller;
+        private Mock<IGameService> _mockGameService;
+        private GamesController _controller;
+        private List<Game> _games;
 
-        public GamesControllerTests()
+        [SetUp]
+        public void Setup()
         {
             _mockGameService = new Mock<IGameService>();
             _controller = new GamesController(_mockGameService.Object);
-        }
 
-        [Fact]
-        public async Task GetGamesAsync_ShouldReturnOkResult_WithListOfGames()
-        {
-            // Arrange
-            var games = new List<Game>
+            _games = new List<Game>
             {
                 new Game { Id = "1", Board = "         ", NextPlayer = "X", Winner = null, IsDraw = false, IsGameOver = false },
                 new Game { Id = "2", Board = " X       ", NextPlayer = "O", Winner = null, IsDraw = false, IsGameOver = false },
                 new Game { Id = "3", Board = "XXXOO    ", NextPlayer = "X", Winner = "X", IsDraw = false, IsGameOver = true },
                 new Game { Id = "4", Board = "XOXOXXOXO", NextPlayer = "X", Winner = null, IsDraw = true, IsGameOver = true },
             };
-            _mockGameService.Setup(x => x.GetGamesAsync()).ReturnsAsync(games);
+        }
+
+        [Test]
+        public async Task GetGamesAsync_ShouldReturnOkResult_WithListOfGames()
+        {
+            // Arrange
+            _mockGameService.Setup(x => x.GetGamesAsync()).ReturnsAsync(_games);
 
             // Act
             var actual = await _controller.GetGamesAsync();
 
             // Assert
-            var expectedResult = Assert.IsType<OkObjectResult>(actual.Result);
-            var expectedCount = Assert.IsAssignableFrom<IEnumerable<Game>>(expectedResult.Value);
-            Assert.Equal(4, expectedCount.Count());
+            Assert.IsInstanceOf<OkObjectResult>(actual.Result);
+            var okObjectResult = actual.Result as OkObjectResult;
+            Assert.IsInstanceOf<IEnumerable<Game>>(okObjectResult?.Value);
+            var gamesList = okObjectResult?.Value as IEnumerable<Game>;
+            Assert.That(gamesList?.Count(), Is.EqualTo(4));
         }
-
-
     }
 }
