@@ -30,7 +30,7 @@ namespace SenseCapitalTestAssignment.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Game>> GetGameAsync(string id)
+        public async Task<ActionResult<Game?>> GetGameAsync(string id)
         {
             var game = await _gameService.GetGameAsync(id);
 

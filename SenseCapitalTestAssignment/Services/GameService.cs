@@ -32,12 +32,12 @@
             return game;
         }
 
-        public async Task<Game> GetGameAsync(string id)
+        public async Task<Game?> GetGameAsync(string id)
         {
             return await _context.Games.FindAsync(id);
         }
 
-        public async Task<Game> MakeMoveAsync(Game game, MoveRequest moveRequest)
+        public async Task<Game?> MakeMoveAsync(Game game, MoveRequest moveRequest)
         {
             if (game.IsGameOver)
             {
