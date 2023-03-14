@@ -3,19 +3,14 @@ using Moq;
 using SenseCapitalTestAssignment.Controllers;
 using SenseCapitalTestAssignment.Models;
 using SenseCapitalTestAssignment.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SenseCapitalTestAssignment.Tests
 {
+    [TestFixture]
     public class MovesControllerTests
     {
         private Mock<IGameService> _mockGameService;
         private MovesController _controller;
-        private List<Game> _games;
 
         [SetUp]
         public void Setup()

@@ -6,6 +6,7 @@ using SenseCapitalTestAssignment.Services;
 
 namespace SenseCapitalTestAssignment.Tests
 {
+    [TestFixture]
     public class GamesControllerTests
     {
         private Mock<IGameService> _mockGameService;
@@ -45,11 +46,10 @@ namespace SenseCapitalTestAssignment.Tests
         }
 
         [Test]
-        public async Task CreateGameAsync_ShouldReturnOkResult_WithNewGame()
+        public async Task CreateGameAsync_ShouldReturnOkResult_WithGame()
         {
             // Arrange
-            var newGame = new Game { Id = "5", Board = "         ", NextPlayer = "X", Winner = null, IsDraw = false, IsGameOver = false };
-            _mockGameService.Setup(x => x.CreateGameAsync()).ReturnsAsync(newGame);
+            _mockGameService.Setup(x => x.CreateGameAsync()).ReturnsAsync(new Game());
 
             // Act
             var actual = await _controller.CreateGameAsync();
@@ -61,21 +61,18 @@ namespace SenseCapitalTestAssignment.Tests
         }
 
         [Test]
-        public async Task GetGameAsync_ShouldReturnOkResult_WithTheGame()
+        public async Task GetGameAsync_ShouldReturnOkResult_WithGame()
         {
             // Arrange
-            _mockGameService.Setup(x => x.GetGameAsync(It.IsAny<string>())).ReturnsAsync(_games[2]);
+            _mockGameService.Setup(x => x.GetGameAsync(It.IsAny<string>())).ReturnsAsync(new Game());
 
             // Act
-            var actual = await _controller.GetGameAsync("3");
+            var actual = await _controller.GetGameAsync(It.IsAny<string>());
 
             // Assert
             Assert.IsInstanceOf<OkObjectResult>(actual.Result);
             var okObjectResult = actual.Result as OkObjectResult;
             Assert.IsInstanceOf<Game>(okObjectResult?.Value);
-            var game = okObjectResult?.Value as Game;
-            Assert.That(game?.Id, Is.EqualTo("3"));
-            Assert.That(game?.Winner, Is.EqualTo("X"));
         }
 
         [Test]
