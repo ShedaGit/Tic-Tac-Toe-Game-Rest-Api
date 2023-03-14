@@ -77,5 +77,18 @@ namespace SenseCapitalTestAssignment.Tests
             Assert.That(game?.Id, Is.EqualTo("3"));
             Assert.That(game?.Winner, Is.EqualTo("X"));
         }
+
+        [Test]
+        public async Task GetGameAsync_ShouldReturnNotFound()
+        {
+            // Arrange
+            _mockGameService.Setup(x => x.GetGameAsync(It.IsAny<string>())).ReturnsAsync((Game?)null);
+
+            // Act
+            var actual = await _controller.GetGameAsync(It.IsAny<string>());
+
+            // Assert
+            Assert.IsInstanceOf<NotFoundResult>(actual.Result);
+        }
     }
 }
