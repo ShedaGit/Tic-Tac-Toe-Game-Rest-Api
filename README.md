@@ -166,10 +166,6 @@ Example response:
 }
 ```
 
-## Conclusion
-
-This REST API provides endpoints for creating a new Tic-Tac-Toe game, retrieving all games, retrieving a game by id, and making a move in the game. It uses C# and .NET 7.0, and it is designed to be used by a web application and a mobile application.
-
 ## Future Improvements
 
 Here are some ideas for improving the Tic-Tac-Toe API:
@@ -178,6 +174,6 @@ Here are some ideas for improving the Tic-Tac-Toe API:
 - Add a feature to resume a game that was previously interrupted
 - Add a feature to check if a game has ended due to a draw
 - Add authentication and authorization to restrict access to certain endpoints
-- Add unit tests and integration tests to ensure the API is functioning correctly
+- Add unit tests and integration tests to ensure the API is functioning correctly (update: added unit tests)
 - Add logging to help with debugging and error tracking
 - Improve error handling and provide more informative error messages to the client
