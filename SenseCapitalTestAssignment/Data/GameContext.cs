@@ -6,6 +6,11 @@
         {
         }
 
-        public DbSet<Game> Games { get; set; }
+        public virtual DbSet<Game> Games { get; set; }
+
+        public virtual void SetModified(Game entity)
+        {
+            Entry(entity).State = EntityState.Modified;
+        }
     }
 }

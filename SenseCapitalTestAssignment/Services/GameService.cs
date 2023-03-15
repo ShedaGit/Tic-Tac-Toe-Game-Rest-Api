@@ -32,13 +32,18 @@
             return game;
         }
 
-        public async Task<Game> GetGameAsync(string id)
+        public async Task<Game?> GetGameAsync(string id)
         {
             return await _context.Games.FindAsync(id);
         }
 
-        public async Task<Game> MakeMoveAsync(Game game, MoveRequest moveRequest)
+        public async Task<Game?> MakeMoveAsync(Game game, MoveRequest moveRequest)
         {
+            if (moveRequest.Row > 2 || moveRequest.Column > 2)
+            {
+                return null;
+            }
+
             if (game.IsGameOver)
             {
                 return null;
@@ -69,7 +74,7 @@
                 game.NextPlayer = game.NextPlayer == "X" ? "O" : "X";
             }
 
-            _context.Entry(game).State = EntityState.Modified;
+            _context.SetModified(game);
             await _context.SaveChangesAsync();
 
             return game;

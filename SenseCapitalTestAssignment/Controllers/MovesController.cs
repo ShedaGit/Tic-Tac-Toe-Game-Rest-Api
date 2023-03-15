@@ -16,7 +16,7 @@ namespace SenseCapitalTestAssignment.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<ActionResult<Game>> MakeMoveAsync(string id, [FromBody] MoveRequest moveRequest)
+        public async Task<ActionResult<Game?>> MakeMoveAsync(string id, [FromBody] MoveRequest moveRequest)
         {
             var game = await _gameService.GetGameAsync(id);
 
