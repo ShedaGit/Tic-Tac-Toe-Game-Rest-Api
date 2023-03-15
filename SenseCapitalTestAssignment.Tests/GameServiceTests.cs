@@ -40,13 +40,14 @@ namespace SenseCapitalTestAssignment.Tests
         public async Task GetGamesAsync_ReturnsAllGames()
         {
             // Arrange
+            var initialCount = _games.Count();
 
             // Act
             var actual = await _gameService.GetGamesAsync();
 
             // Assert
             Assert.IsNotNull(actual);
-            Assert.That(actual.Count(), Is.EqualTo(7));
+            Assert.That(actual.Count(), Is.EqualTo(initialCount));
             CollectionAssert.AreEqual(actual, _games);
         }
 
