@@ -37,7 +37,7 @@ namespace SenseCapitalTestAssignment.Tests
         }
 
         [Test]
-        public async Task GetGamesAsync_ReturnsAllGames()
+        public async Task GetGamesAsync_ShouldReturnAllGames()
         {
             // Arrange
             var initialCount = _games.Count();
