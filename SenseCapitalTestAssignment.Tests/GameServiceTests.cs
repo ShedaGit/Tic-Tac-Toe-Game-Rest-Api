@@ -116,5 +116,22 @@ namespace SenseCapitalTestAssignment.Tests
             Assert.IsFalse(actual.IsDraw);
             Assert.IsFalse(actual.IsGameOver);
         }
+
+        [Test]
+        public async Task MakeMoveAsync_ShouldMakeInvalidMove()
+        {
+            // Arrange
+            var gameId = "2";
+            var moveRequest = new MoveRequest { Row = 4, Column = 1 };
+            var game = _games.FirstOrDefault(game => game.Id == gameId);
+            Assume.That(game, Is.Not.Null);
+            _mockContext.Setup(c => c.SetModified(It.IsAny<Game>()));
+
+            // Act
+            var actual = await _gameService.MakeMoveAsync(game, moveRequest);
+
+            // Assert
+            Assert.IsNull(actual, "Expected result to be null for an invalid move request");
+        }
     }
 }
