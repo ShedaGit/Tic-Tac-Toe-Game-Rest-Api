@@ -39,6 +39,11 @@
 
         public async Task<Game?> MakeMoveAsync(Game game, MoveRequest moveRequest)
         {
+            if (moveRequest.Row > 2 || moveRequest.Column > 2)
+            {
+                return null;
+            }
+
             if (game.IsGameOver)
             {
                 return null;
