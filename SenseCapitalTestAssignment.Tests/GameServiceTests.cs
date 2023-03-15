@@ -73,5 +73,25 @@ namespace SenseCapitalTestAssignment.Tests
             Assert.That(_games.Count, Is.EqualTo(initialCount + 1));
             _mockContext.Verify(c => c.Games.Add(actual), Times.Once());
         }
+
+        [Test]
+        public async Task GetGameAsync_ShouldReturnsGameById()
+        {
+            // Arrange
+            var gameId = "2";
+            _mockContext.Setup(c => c.Games.FindAsync(It.IsAny<object[]>())).ReturnsAsync((object[] ids) => _games.FirstOrDefault(game => game.Id == gameId));
+
+            // Act
+            var actual = await _gameService.GetGameAsync(gameId);
+
+            // Assert
+            Assert.IsNotNull(actual);
+            Assert.That(actual.Id, Is.EqualTo(gameId));
+            Assert.That(actual.Board, Is.EqualTo(" X       "));
+            Assert.That(actual.NextPlayer, Is.EqualTo("O"));
+            Assert.IsNull(actual.Winner);
+            Assert.IsFalse(actual.IsDraw);
+            Assert.IsFalse(actual.IsGameOver);
+        }
     }
 }
