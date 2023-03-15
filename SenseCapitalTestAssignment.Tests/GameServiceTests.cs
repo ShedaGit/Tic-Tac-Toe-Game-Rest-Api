@@ -49,5 +49,28 @@ namespace SenseCapitalTestAssignment.Tests
             Assert.That(actual.Count(), Is.EqualTo(7));
             CollectionAssert.AreEqual(actual, _games);
         }
+
+        [Test]
+        public async Task CreateGameAsync_ShouldReturnNewGame_WithAddingToTheContext()
+        {
+            // Arrange
+            _mockContext.Setup(c => c.Games.Add(It.IsAny<Game>())).Callback<Game>(game => _games = _games.Concat(new[] { game }.AsQueryable()));
+            var initialCount = _games.Count();
+
+            // Act
+            var actual = await _gameService.CreateGameAsync();
+
+            // Assert
+            Assert.IsNotNull(actual);
+            Assert.IsNotEmpty(actual.Id);
+            Assert.IsTrue(Guid.TryParse(actual.Id, out _));
+            Assert.That(actual.Board, Is.EqualTo("         "));
+            Assert.That(actual.NextPlayer, Is.EqualTo("X"));
+            Assert.IsNull(actual.Winner);
+            Assert.IsFalse(actual.IsDraw);
+            Assert.IsFalse(actual.IsGameOver);
+            Assert.That(_games.Count, Is.EqualTo(initialCount + 1));
+            _mockContext.Verify(c => c.Games.Add(actual), Times.Once());
+        }
     }
 }
