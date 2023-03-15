@@ -75,7 +75,7 @@ namespace SenseCapitalTestAssignment.Tests
         }
 
         [Test]
-        public async Task GetGameAsync_ShouldReturnsGameById()
+        public async Task GetGameAsync_ShouldReturnGameById()
         {
             // Arrange
             var gameId = "2";
