@@ -69,7 +69,7 @@
                 game.NextPlayer = game.NextPlayer == "X" ? "O" : "X";
             }
 
-            _context.Entry(game).State = EntityState.Modified;
+            _context.SetModified(game);
             await _context.SaveChangesAsync();
 
             return game;
