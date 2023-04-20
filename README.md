@@ -1,4 +1,4 @@
-# Sense-Capital - Tic-Tac-Toe Game REST API
+# Tic-Tac-Toe Game REST API
 
 This is a REST API for playing Tic-Tac-Toe game. The API allows two players to play the game on a 3x3 board by making moves until there is a winner or the board is full.
 
