@@ -1,5 +1,7 @@
 # Tic-Tac-Toe Game REST API
 
+![CI](https://github.com/ShedaGit/Tic-Tac-Toe-Game-Rest-Api/actions/workflows/dotnet.yml/badge.svg)
+
 This is a REST API for playing Tic-Tac-Toe game. The API allows two players to play the game on a 3x3 board by making moves until there is a winner or the board is full.
 
 The API is built using C# and .NET 7.0, and it uses Entity Framework Core to access the database. The API supports JSON message format and provides endpoints to create a new game, retrieve all games, retrieve a game by id, and make a move in the game.
